@@ -1,8 +1,7 @@
-enum Color {
-  Gray, //0
-  Green = 100, //100
-  Blue //101 (continues incrementing from the last no. of item prior to this one, so if we want it 2, 
-}
+let complex: {data: number[], output: (all: boolean) => number[]} = {
+  data: [100, 3.99, 10],
 
-let myColor: Color = Color.Blue;
-console.log(myColor)
+  output: function(all: boolean): number[] {
+    return this.data;
+  }
+};

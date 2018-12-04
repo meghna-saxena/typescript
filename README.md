@@ -201,6 +201,7 @@ enum ServerState {
 if (myState = ServerState.Offline) { ... }
 ```
 
+* Othr examples includes: days in a week, months in a year, starbucks coffee cup sizes
 
 ## The "Any" type
 - Any is the most flexible type in TS
@@ -298,3 +299,75 @@ object may also have functions, it can be useful to define how such a function s
 
 
 ## Objects and types
+
+```
+let userData = {
+  name:'Meg',
+  age: 28
+};
+```
+
+Behind the scenes TS infers the type this variable should have, i.e object with a name field which is of type string
+and age field of type number.
+
+`userData = {};` //throws error since it should contain name (type string) and age (type number) fields.
+
+```
+userData = {
+  a: 'Hello',
+  b: 22
+}; //throws error because names of properties dont match
+```
+
+* So names dont matter in functions, there only types matter, but in object names of properties also matters!
+And the reason is => in function, the order is important. The first agr should be a number, second should be a number and so on
+But in object, the order is unclear, order might change behind the scenes.
+
+Explicit types of object
+
+```
+let userData: {} = { //if empty obj
+  name:'Meg',
+  age: 28
+};
+
+or 
+
+let userData: {name: string, age: number} = {
+  name:'Meg',
+  age: 28
+};
+```
+
+It is considered a good practice to be explicit about the types you use. But it also has the advantage, 
+that you can initialize object properties as null and still make sure that TypeScript understands which property
+this object would normally contain.
+
+
+## EXAMPLE: Putting it all together in a complex object
+
+```
+let complex: {data: number[], output: (all: boolean) => number[]} = {
+  data: [100, 3.99, 10],
+
+  output: function(all: boolean): number[] {
+    return this.data;
+  }
+};
+```
+
+- complex is an obj, w/ data and output properties, data is array of numbers and output property is a function 
+with one argument all with type boolean; name of arg is not important and the func returns array of numbers.
+
+So if we reassgin =>
+
+`complex = {}; //throws err`
+
+
+Note: 
+'this' implicitly has type 'any' because it does not have a type annotation.
+`noImplicitAny: false` in the config file reoslves the issue
+
+
+## Creating custom types w/ types aliases
+
