@@ -1,4 +1,4 @@
-type BankAccount = {money: number, deposit: (val: number) => void} //since this func doesnt returns anything so add void typev
+type BankAccount = {money: number, deposit: (val: number) => void} //since this func doesnt returns anything so add void type
 
 let bankAccount: BankAccount = {
   money: 2000,
