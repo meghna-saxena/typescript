@@ -177,7 +177,8 @@ enum Color {
 }
 ```
 
-- enums are generally useful when working with data which may assume multiple states. Consider the state of a server. It may be "offline", "online" or in "maintenance". You could store that state as a string. But you could also simply assign a number to each state (since you don't really care about the string in your program).
+- enums are generally useful when working with data which may assume multiple states. Consider the state of a server. It may be "offline", "online" or in "maintenance". You could store that state as a string. But you could also simply assign a number
+ to each state (since you don't really care about the string in your program).
 
 ```
 let STATE_OFFLINE = 0;
@@ -204,7 +205,8 @@ if (myState = ServerState.Offline) { ... }
 * Othr examples includes: days in a week, months in a year, starbucks coffee cup sizes
 
 ## The "Any" type
-- Any is the most flexible type in TS
+- Any is the most flexible type in TS.
+- Generic parent type
 
 let car: any = "BMW"; //string
 car = { brand: "BMW", series: 3 }; //reassigned as object
@@ -293,9 +295,9 @@ myMultiply = multiply; //executes!
 myMultiply(2, 5);
 ```
 
-Typechecking never hurts as it can ensure that you're calling a function correctly and/ or that you're defining a function correctly.
-This is especially useful when using interfaces (another TS feature). There, you define "blueprints" for JS objects and as such an
-object may also have functions, it can be useful to define how such a function should look like.
+Typechecking never hurts as it can ensure that you're calling a function correctly and/ or that you're 
+defining a function correctly. This is especially useful when using interfaces (another TS feature). 
+There, you define "blueprints" for JS objects and as such an object may also have functions, it can be useful to define how such a function should look like.
 
 
 ## Objects and types
@@ -320,8 +322,8 @@ userData = {
 ```
 
 * So names dont matter in functions, there only types matter, but in object names of properties also matters!
-And the reason is => in function, the order is important. The first agr should be a number, second should be a number and so on
-But in object, the order is unclear, order might change behind the scenes.
+And the reason is => in function, the order is important. The first agr should be a number, second 
+should be a number and so on. But in object, the order is unclear, order might change behind the scenes.
 
 Explicit types of object
 
@@ -371,3 +373,222 @@ Note:
 
 ## Creating custom types w/ types aliases
 
+- Complex types like above have an issue. Imagine we have another property or another variable:
+
+```
+let complex2: {data: number[], output: (all: boolean) => number[]} = {
+  data: [100, 3.99, 10],
+
+  output: function(all: boolean): number[] {
+    return this.data;
+  }
+};
+```
+
+Now, if we have to change the type of data as `any[]`, it will be cumbersome to change at places.
+So we can assign the type to one word which can be reused.
+
+We'll later learn about classes, which alows to create objects or blueprints of an object, but here we can use type alias
+to store a type
+
+- Create alias with  `type` keyword and then name of your choice
+
+```
+type Complex = {data: number[], output: (all: boolean) => number[]};
+
+let complex2: Complex = {
+  data: [100, 3.99, 10],
+
+  output: function(all: boolean): number[] {
+    return this.data;
+  }
+};
+```
+
+The convention is to give your types names that start with uppercase characters. This keeps them in line 
+with all the built-in types.
+
+* Notes:
+
+> Aliases vs Interface
+
+- An interface really is like a contract you sign => "I will have a property named 'age' which is of type number".
+- An alias kind of does the same, but may only be used as Type.
+
+So they do the same thing if we use them as types like this:
+
+```
+interface Aged {
+    age: number;
+}
+ 
+type Aged = {
+    age: number;
+};
+ 
+someObj: Aged = {
+    name: string; // => Error
+};
+```
+
+But what if we want to "force" a class to have "age" property?
+
+```
+class SomeClass: Aged {}  doesn't work!
+
+Here only an interface helps us:
+
+class SomeClass implements Aged {} 
+```
+
+Because we can only implement interfaces, not aliases.
+
+
+## Allowing multiple types w/ Union Types
+
+- Be explicit about the types, use number, string, any. But sometimes you need in-between solution. Your type will be string
+or number, but certainly not boolean, and so you'll think of using `any` even though you know type will be either `string` or 
+`number`. That's where `union types` comes into play.
+
+```
+let myAge: number | string = 27; //You may also chain more than 2 types!
+myAge = "27"; 
+myAge = true; //throws err
+```
+
+* Other info:
+You can define optional arguments like this: 
+
+```
+function buildName(firstName: string, lastName?: string) {
+  if (lastName) return firstName + " " + lastName;
+  else return firstName;
+}
+```
+
+## Checking for types during runtime
+- use `typeof` 
+
+```
+let finalValue = "A string";
+if(typeof finalValue == "number") { //remember to put type inside quotation marks
+  console.log("finalValue is a number"); //doesnt executes
+}
+```
+
+* Notes: 
+
+```
+let a: number[];
+a = [1,2];
+console.log(typeof a);
+```
+
+- Types are only known to TS, not the JS (which is what runs in the browser though). So typeof doesnt prints on browser
+console. You can do this however - 
+`console.log(a instanceof Array)` // prints true because a is an instance of the Array constructor function/ "type"
+
+How to check the created custom types. i.e I need to check if atom is of type dropBomb.
+
+// Both console logs does not do it.
+
+```
+type dropBomb = {x: number, y:number};
+
+let atom: dropBomb;
+atom = {x:2, y:3};
+
+console.log(typeof atom);
+console.log(atom instanceof dropBomb);
+```
+
+Check for the custom TypeScript types like the ones declared with Type Aliases?
+Use `instanceof` to check whether a variable is of a certain type:
+
+`person instanceof Person`
+
+Since types are TS only feature, you can't use these types at runtime in JS
+
+
+## The never type (added in TS 2.0)
+
+```
+function neverReturns(): never {
+  throw new Error('An error msg');
+}
+```
+
+This func. never finishes. It doesnt return the void, it instead never returns anything.
+This func has an error and therefore it never returns.
+
+```
+function fail(message: string):never { throw new Error(message); }
+ 
+function foo(x: string | number): boolean | undefined {
+      if (typeof x === "string") {
+            return true;
+      } else if (typeof x === "number") {
+            return false;
+      }
+ 
+      fail("Unexhaustive!");
+}
+ 
+foo('hello');
+```
+
+
+## Nullable types (added in TS 2.0)
+
+```
+let canBeNull = 12; //inferred to be a number
+canBeNull = null; //clears the value
+
+let canAlsoBeNull; //type any by default, but it also has value undefined
+canAlsoBeNull = null; //this can lead to problem, since if any variable is reassigned to null, you have to check with complex code,
+that if its value is not null then do something
+```
+
+- With TS be explicit about which should be null and which shouldn't
+
+- Go to `tsconfig.json`, and add new field in compilerOptions `"strictNullChecks": true `
+
+- By default since this field is absent, it is set to false.
+- Now we can't reassign null to a variable.
+- However uninitalized varibale with value undefined doesnt throws error when reassigned null, since undefined and null
+are special values in JS
+
+- However, if we still need to reassign a variable with value other than undefined later on, we can use `union types`
+
+```
+let canBeNull: number | null = 12; 
+canBeNull = null; 
+
+let canThisBeAny = null; //this is inferred as type null, not type any
+canThisBeAny = 12; //throws err
+
+So override this by:
+let canThisBeAny: number | null = null; 
+canThisBeAny = 12; //throws err
+```
+
+
+## Module Exercise
+
+let bankAccount = {
+    money: 2000,
+    deposit(value) {
+        this.money += value;
+    }
+};
+ 
+let myself = {
+    name: "Max",
+    bankAccount: bankAccount,
+    hobbies: ["Sports", "Cooking"]
+};
+ 
+myself.bankAccount.deposit(3000);
+ 
+console.log(myself);
+ 

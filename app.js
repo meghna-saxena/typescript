@@ -1,5 +1,7 @@
 "use strict";
-var userData = {
-    name: 'Meg',
-    age: 28
+var complex = {
+    data: [100, 3.99, 10],
+    output: function (all) {
+        return this.data;
+    }
 };
