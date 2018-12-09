@@ -596,3 +596,119 @@ const deposit = myself.bankAccount.deposit(3000);
 console.log(deposit); //undefined since the function doesnt returns anything
 
  ```
+
+
+# Understanding the TS compiler
+- create a .ts file
+
+```
+let myName: string = "Max";
+let myAge: number = 28;
+```
+
+> Run tsc
+
+- creates a js file
+  - converts let to var
+  - remove the types, since JS dont have strong typing/ explicit types
+
+`myName = 30;` // throws compilation error, number cant be assigned to string
+
+- If we go back to JS file, it still shows the reassignment of the variable even though we get a compilation 
+error.
+- Why it compiles? Because its a default behavior, TS compiler warns/throws error, but it compiles
+nonetheless to give a chnace to run the code because maybe due to some import statement in html files or other
+place which TS doesnt knows about, but code still works once its compiled.
+However then its not a TS-friendly application.
+
+- You can suppress this behavior:
+`tsconfig.json gives compilerOptions`
+
+## Changing the compiler behavior on errors:
+- tsconfig.json is a default file which gets created by running `tsc --init`
+
+Base options in the file -
+
+```
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es5",
+    "noImplicitAny": false,
+    "sourceMap": false
+  },
+  "exclude": {
+    "node_modules"
+  }
+}
+```
+
+- Fix the dafult behavior of TS compiling code, even if it has type errors
+
+Add `"noEmitOnError": true` inside compilerOptions
+
+
+## Debugging TS code using source maps
+
+Inside compilerOptions, `sourceMap` is set to false by default. If its set to true, upon running tsc, 
+along with .js file .map file is also created which is sourcemap file.  
+
+- Go to chrome dev tools -> Sources  -> app.js, app.ts.
+  So we get access to ts file on the browser.
+- We can make breakpoints in the ts file, so debug ts code directly in the browser
+
+
+## Avoiding implicit "any"
+
+```
+let anything; //no type is declared so, type any is assgined implicitely
+anything = 12;
+```
+
+- To prevent this behavior =>
+tsconfig,json -> compilerOptions -> `noImplicitAny: true`
+- It still allows to explictely set any type
+eg: `let anything: any;`
+
+
+## More compiler options
+- Detailed documentation on the TypeScript Compiler Config File (tsconfig.json) here: http://www.typescriptlang.org/docs/handbook/tsconfig-json.html
+
+- Detailes on the Compiler Options can be found here: http://www.typescriptlang.org/docs/handbook/compiler-options.html
+
+
+## Compiler improvements w/ TS 2.0
+
+```
+function controlMe(isTrue: boolean) {
+  let result: number;
+  if(isTrue) {
+    result = 12;
+  }
+  return result;
+}
+```
+
+In this case, if result is not initialized, it has value null. So there's no error.
+If in compilerOptions, `strictNullChecks: true` is added, since result is not initalized 
+and it expects a value to be number and not null, it throws an error
+
+
+Other compiler improvements:
+
+If we add extra parameter in the func. which is unused and add `noUnusedParameter: true`
+
+```
+function controlMe(isTrue: boolean, somethingElse: boolean) {
+  let result: number;
+  if(isTrue) {
+    result = 12;
+  }
+  result = 33;
+  return result;
+}
+```
+- Results in cleaner code.
+
+
+# Typescript and ES6

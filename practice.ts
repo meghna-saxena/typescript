@@ -8,5 +8,5 @@ const findNameLength = (firstName: string, lastName: string): { fullName: number
 console.log(findNameLength("sdjssdjlkdjklsd", "Saxena"));
 
 let myAge: number | string = 27; //You may also chain more than 2 types!
-myAge = "27"; 
+myAge = "27";
 
