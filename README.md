@@ -726,3 +726,144 @@ http://kangax.github.io/compat-table/es6/
 
 - let keyword created block-scoped variable, while var keyword creates function or global-scoped variable
 
+
+## What is block scope?
+- Variable is accessed inside the nearest block-level only.
+
+```
+let variable = "test";
+console.log(variable);
+
+variable = "another value";
+console.log(variable);
+
+const maxLevels = 100;
+console.log(maxLevels);
+
+// Block scope
+function reset() {
+  let variable = null;
+  console.log(variable); //null
+}
+
+reset();
+console.log(variable); //another value
+```
+
+
+## Arrow functions
+
+```
+/* ARROW FUNCTIONS */
+
+const addNumbers = function(number1: number, number2: number): number {
+  return number1 + number2;
+};
+console.log(addNumbers(10, 2));
+
+
+// const multiplyNumbers = (number1: number, number2: number): number => {
+//   return number1 * number2;
+// };
+
+//OR
+
+const multiplyNumbers = (number1: number, number2: number): number => number1 * number2;
+
+console.log(multiplyNumbers(10, 5));
+```
+
+The type definition would be: const addNumbers: (number, number) => number 
+
+- If single arg, omit parenthesis when not decalring type. But if type is declared so wrap w/ parenthesis
+
+```
+const print = (content:string):string => "print me" + content;
+```
+
+## Functions and default params
+- Works w/ arrow func. as well as old func. syntax
+
+```
+const countdown = (start: number = 10): void => { //returns nothing
+  console.log(start); //20
+  while (start > 0) {
+    start--;
+  }
+  console.log("Done!", start); // Done! 0
+}
+countdown(20);
+```
+
+## Rest & Spread Operator
+- Allow to work w/ arrays and list of data, and the diff is array is kind of object where
+you store multiple values whereas list of values is just a list.
+
+Eg: 
+
+```
+Array of numbers => [1, 4, 7, -5]
+List of numbers => 1, 4, 7, -5
+```
+We can pass list of no. to a function. 
+Eg: Math.max(numbers) //won't work by passing array of no.
+Instead Math.max(1, 4, 7, -5) // 7
+
+So, if working w/ array use `spread operator` which spreads array into single value
+`Math.max(...numbers)`
+
+
+```
+const join = (string1: string, string2: string) => {
+    return string1 + string2;
+}
+ 
+const names = ["Brian ", "Romano"];
+ 
+console.log(join(...names)); // Brian Romano
+```
+
+
+### Rest operator
+
+```
+function makeArray(args: number) {
+  return args;
+}
+// doesnt works, since func expects list of args, but get only one element as argument
+```
+
+```
+function makeArray(arg1: number, arg2: number) {
+  return [arg1, arg2];
+}
+
+console.log(makeArray(1, 2)); // [1, 2]
+// but this way isn't flexible. You dont know how many args are there.
+```
+
+So, use rest operator
+
+```
+function makeArray(name: string, ...args: number[]) {
+  return args;
+}
+console.log(makeArray("Meg", 1, 2, 6)); // [1, 2, 6]
+```
+
+
+> Note:
+
+`Rest Parameters & Tuples`
+Since TypeScript 3, you can also use tuples as types for rest expressions.
+
+For example, these two function signatures are equal:
+
+```
+function printInfo(name: string, age: number) {
+    console.log('My name is ' + name + ' and I am ' + age + ' years old!');
+}
+function printInfo(...info: [string, number]) {
+    console.log('My name is ' + info[0] + ' and I am ' + info[1] + ' years old!');
+}
+```
