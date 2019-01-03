@@ -57,6 +57,8 @@ not part of official drafts or implementations.
 - tsc --init => created `tsconfig.json` which says its a typescript project,
 so while running `tsc`, it compiles all the TS files, we dont need to specify the file name everytime.
 
+- Run `tsc -w`for watch mode
+
 
 # Using types for a better code
 
@@ -712,3 +714,15 @@ function controlMe(isTrue: boolean, somethingElse: boolean) {
 
 
 # Typescript and ES6
+
+Not necessarily all ES6 Features are supported by TypeScript, but quite a lot of them are.
+
+The following Compatibly Chart helps you find out if you're favorite Feature is supported:
+http://kangax.github.io/compat-table/es6/
+
+
+
+## let & const
+
+- let keyword created block-scoped variable, while var keyword creates function or global-scoped variable
+

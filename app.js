@@ -5,3 +5,10 @@ var complex = {
         return this.data;
     }
 };
+
+var variable = "test";
+console.log(variable);
+variable = "another value";
+console.log(variable);
+var maxLevels = 100;
+console.log(maxLevels);

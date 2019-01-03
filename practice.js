@@ -7,5 +7,3 @@ var findNameLength = function (firstName, lastName) {
 console.log(findNameLength("sdjssdjlkdjklsd", "Saxena"));
 var myAge = 27; //You may also chain more than 2 types!
 myAge = "27";
-var test = "hello";
-test = 21;
