@@ -852,9 +852,8 @@ console.log(makeArray("Meg", 1, 2, 6)); // [1, 2, 6]
 ```
 
 
-> Note:
+> Note: *Rest Parameters & Tuples*
 
-`Rest Parameters & Tuples`
 Since TypeScript 3, you can also use tuples as types for rest expressions.
 
 For example, these two function signatures are equal:
@@ -867,3 +866,53 @@ function printInfo(...info: [string, number]) {
     console.log('My name is ' + info[0] + ' and I am ' + info[1] + ' years old!');
 }
 ```
+
+
+## Destructuring Arrays
+
+*Old way:*
+
+```
+const hobbies = ["Cooking", "Drawing"];
+const hobby1 = hobbies[0];
+const hobby2 = hobbies[1];
+
+console.log(hobby1, hobby2);
+```
+
+*New way:*
+
+```
+const hobbies = ["Cooking", "Drawing"];
+const [hobby1, hobby2] = hobbies; //assigns the value by the position of elements in the array
+console.log(hobby1, hobby2);
+```
+
+- Rest operator with destructuring
+You can also use rest operator like this:
+
+`var [a, b, ...rest] = [1,2,3,4,5]; `
+
+where `rest` will be an array with values: 3,4,5
+
+
+## Destructuring objects
+
+```
+const userData = {name: "Meg", age: 28};
+const userName = userData.name;
+const userAge = userData.age;
+```
+
+Rewritten as:
+
+```
+const data = {username: "Meg", age: 28};
+const {username, age} = data;
+
+// For assigning diff names to the constants =>
+const {username: myName, age: myAge} = data;
+```
+
+
+## Template literals

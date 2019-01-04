@@ -62,3 +62,37 @@ function printInfo(...info: [string, number]) {
 }
 
 printInfo("Meg", 28);
+
+
+/* DESTRUCTURING */
+console.log('DESTRUCTURING ARRAYS');
+
+const hobbies = ["Cooking", "Drawing"];
+const hobby1 = hobbies[0];
+const hobby2 = hobbies[1];
+console.log(hobby1, hobby2);
+
+/* ====================================== */
+const myHobbies = ["Cooking", "Drawing"];
+const [myHobby1, myHobby2] = hobbies; //assigns the value by the position of elements in the array
+console.log(myHobby1, myHobby2);
+
+/* ========================================== */
+console.log('DESTRUCTURING ARRAYS');
+
+const userData = {name: "Meg", age: 28};
+const userName = userData.name;
+const userAge = userData.age;
+console.log(userName, userAge);
+
+/* ====================================== */
+const data = {username: "Meg", age: 28};
+const {username, age} = data;
+console.log(username, age);
+
+
+const myname = "Meg";
+const greeting = `This is a heading!
+I am ${myname}.
+This is cool!`
+console.log(greeting);
