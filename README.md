@@ -916,3 +916,177 @@ const {username: myName, age: myAge} = data;
 
 
 ## Template literals
+- Kind of extended strings with more features.
+
+```
+const userName = "Meg";
+const greeting = `This is a heading!
+I am ${userName}.
+This is cool!`
+```
+//each new line, prints a new line
+
+
+______________________________________________________________________
+
+# Using classes to create objects
+
+## Introduction
+TS is compiled to old ES5 syntax
+
+Example from TS playground:
+
+```
+class Greeter {
+    greeting: string;
+    constructor(message: string) {
+        this.greeting = message;
+    }
+    greet() {
+        return "Hello, " + this.greeting;
+    }
+}
+let greeter = new Greeter("world");
+let button = document.createElement('button');
+button.textContent = "Say Hello";
+button.onclick = function() {
+    alert(greeter.greet());
+}
+document.body.appendChild(button);
+```
+
+will be compiled to 
+
+```
+var Greeter = /** @class */ (function () {
+    function Greeter(message) {
+        this.greeting = message;
+    }
+    Greeter.prototype.greet = function () {
+        return "Hello, " + this.greeting;
+    };
+    return Greeter;
+}());
+var greeter = new Greeter("world");
+var button = document.createElement('button');
+button.textContent = "Say Hello";
+button.onclick = function () {
+    alert(greeter.greet());
+};
+document.body.appendChild(button);
+```
+
+
+## Creating classes & class properties
+
+- Classes are blueprints of objects which has some properties and methods.
+
+```
+class Person {
+  public name: string;
+  //can prefix property name with public (accessible from outside), 
+  //or we can remove it since by default its public already
+
+  private type: string;
+  // js (es5 or 6 doesnt have private property, but w/ ts we can create private property)
+  //private property are only available from the object you create based on the Person class, i.e
+  //only within this object
+
+  protected age: number;
+  //protected property also meets the above definition, but additionally they're also accessible from 
+  //any objects/classes  which inherit from this class
+
+  constructor(name: string) {
+    this.name = name; //this.name refers to the property of class, name refers to the argument passed
+  }
+}
+```
+
+All these properties are set directly inside class body and not inside constructor function
+
+
+Shortcut for setting up property inside class which is also setup in the constructor
+
+```
+class Person {
+  name: string
+  private type: string;
+  protected age: number;
+
+  constructor(name: string, public username: string) { //expects an arg username and ts creates a public property out of it
+    this.name = name;
+  }
+}
+```
+
+Use the class by `instantiating` it which means `create an object` based on this class.
+
+const person = new Person("Meg", "Meggie");
+console.log(person);
+
+* Age and type properties are not accessible outside the class since they are private/protected
+
+
+## Class methods and access modifiers 
+
+- If we cant access private/protected properties outside the class, why to create them in the first place?
+So to use those properties, add a method to the class, and call that method from outside the class which
+uses the private/protected properties
+
+```
+class Person {
+  name: string
+  private type: string;
+  protected age: number = 27;
+
+  constructor(name: string, public username: string) { 
+    this.name = name;
+  }
+
+  printAge() {
+    console.log(this.age);
+  }
+
+  setType(type: string) {
+    this.type = type;
+    console.log(this.type);
+  }
+}
+
+const person = new Person("Meg", "Meggie");
+console.log(person.name, person.username);
+person.printAge();
+person.setType("Cool guy!");
+```
+
+- Methods can also be private/public. If method is set private they cant be accessed
+from outside.
+
+```
+class Person {
+  name: string
+  private type: string;
+  protected age: number = 27;
+
+  constructor(name: string, public username: string) { 
+    this.name = name;
+  }
+
+  printAge() {
+    console.log(this.age);
+    this.setType("Cool guy!")
+  }
+
+  private setType(type: string) {
+    this.type = type;
+    console.log(this.type);
+  }
+}
+
+const person = new Person("Meg", "Meggie");
+console.log(person.name, person.username);
+person.printAge();
+```
+
+
+## Inheritance
