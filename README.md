@@ -85,10 +85,23 @@ ________
   - It fetches latest version and install on local machine.
   - On mac or linux you may need a `sudo` before entering this command.
 
+___
 
-# Using TS
-- Command `tsc filename` (script.ts) => runs TS compiler
+# Using TypeScript
+Small live example:
 
+Steps:
+- Make a project folder w/ basic html structure `index.html` and a `script.ts` file. 
+  - `.ts is the file extension.`
+- Paste the code from `classic javascript` playground stuff from official tslang site in your script.ts file.
+- Import script.js in your html file inside body tag, becuase js runs in browser not ts.
+- Compile the ts file w/ the following command:
+  - >`tsc filename`. 
+  Example `tsc script.ts` => runs TS compiler
+  - If any errors are there, it would be seen in the console during this compilation time.
+- After running the above command we see `script.js` in our project folder which has complied js code. 
+
+___________
 
 - TypeScript is a JavaScript superset - it comes with its own compiler and adds features which are not part of next-gen JS (e.g. types).
 
