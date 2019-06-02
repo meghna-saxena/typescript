@@ -1,5 +1,4 @@
 # Understand TypeScript:
-___________
 
 ## What is Typescript?
 
@@ -18,7 +17,41 @@ So for getting the other missing features which are there in other programming l
 ____
 
 # Why TypeScript and How to use it?
-https://www.typescriptlang.org => Playground
+
+Go to -> https://www.typescriptlang.org 
+Click on `Playground`
+
+Select `Classic JavaScript` or `using classes`, and describe the difference b/w passing object as an argument when expecting a string.
+
+`Classic Javascript`
+
+```
+function Greeter(greeting) { 
+  // explicitely define the type (greeting: string) as parameter
+
+    this.greeting = greeting;
+}
+
+Greeter.prototype.greet = function() {
+    return "Hello, " + this.greeting;
+}
+
+// Oops, we're passing an object when we want a string. This will print 
+// "Hello, [object Object]" instead of "Hello, world" without error.
+
+new Greeter({message: "world"});  //[object Object]
+//let greeter = new Greeter("world");  //string
+
+let button = document.createElement('button');
+button.textContent = "Say Hello";
+button.onclick = function() {
+    alert(greeter.greet());
+};
+
+document.body.appendChild(button);
+```
+
+Similary in ES6 classes:
 
 ```
 class Greeter {
@@ -41,9 +74,16 @@ button.onclick = function() {
 
 document.body.appendChild(button);
 ```
+________
 
-# Installing TS
-`npm -g install typescript`
+# Installing TypeScript
+
+- Open `CLI` (A command-line interface or command language interpreter.
+- You need to have `node` installed on your local machine, and specifially npm installed.
+- Globally install typescript by running:
+  - `npm -g install typescript`
+  - It fetches latest version and install on local machine.
+  - On mac or linux you may need a `sudo` before entering this command.
 
 
 # Using TS
