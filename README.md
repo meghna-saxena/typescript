@@ -1,11 +1,23 @@
-# What is Typescript?
+# Understand TypeScript:
+___________
 
-- JS offers features like constructor function, dynamic types, prototypes  
-- TS(Typescript) works as a wrapper over ES5/6 to compile down to JS in the end and introduces new features like `generics`, `interfaces`
-- TS is `strongly-typed language`, which means to be specific about the type of variable
-- TS doesnt run in the browser, we need a compiler. 
+## What is Typescript?
 
-# Why TS and How to use it?
+JavaScript comes w/ lot of features like: constructor functions, prototypes, dynamic types etc.
+
+Now, we're highlighting the word `types` here, sicne in JS a variable can be string and then reassigned holding a value of a number type.
+This feature is specifically ES5, and then came ES6 which introduced new features like `class` keyword etc.
+
+So for getting the other missing features which are there in other programming langauges but not in JavaScript, typescript came in:
+
+- TS (Typescript) works as a wrapper over ES5/6 to compile down to JavaScript in the end and introduces new features like `generics`, `interfaces` which all gets compiled to ES5 code to run in browser.
+- The most important feature is:
+  -  TS is `strongly-typed language`, which means to be specific about the type of variable.
+
+*Remember:* TS doesn't runs in the browser, we need a compiler. 
+____
+
+# Why TypeScript and How to use it?
 https://www.typescriptlang.org => Playground
 
 ```
