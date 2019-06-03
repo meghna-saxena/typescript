@@ -18,12 +18,12 @@ ____
 
 # Why TypeScript and How to use it?
 
-Go to -> https://www.typescriptlang.org 
-Click on `Playground`
+  - Go to -> https://www.typescriptlang.org 
+    - Click on `Playground`
 
-Select `Classic JavaScript` or `using classes`, and describe the difference b/w passing object as an argument when expecting a string.
+    - Select `Classic JavaScript` or `using classes`, and describe the difference b/w passing object as an argument when expecting a string.
 
-`Classic Javascript`
+*Classic Javascript*
 
 ```
 function Greeter(greeting) { 
