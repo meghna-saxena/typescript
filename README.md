@@ -26,13 +26,13 @@ ____
 *Classic Javascript*
 
 ```
-function Greeter(greeting) { 
-  // explicitely define the type (greeting: string) as parameter
+function Greeter(greeting) { // constructor function
+  // explicitly define the type (greeting: string) as parameter
 
     this.greeting = greeting;
 }
 
-Greeter.prototype.greet = function() {
+Greeter.prototype.greet = function() { // extend w/ prototype
     return "Hello, " + this.greeting;
 }
 
@@ -41,6 +41,7 @@ Greeter.prototype.greet = function() {
 
 new Greeter({message: "world"});  //[object Object]
 //let greeter = new Greeter("world");  //string
+instantiate object
 
 let button = document.createElement('button');
 button.textContent = "Say Hello";
@@ -109,7 +110,7 @@ ___________
 not part of official drafts or implementations.
 
 # Setting up the workspace
-- npm init
+- npm init -> creates `package.json`
 - npm install lite-server --save-dev
   - Its a light weight server for hosting html file
   - No need to reload everytime
@@ -119,7 +120,7 @@ not part of official drafts or implementations.
             }
         ```
 
-- tsc --init => created `tsconfig.json` which says its a typescript project,
+- `tsc --init` => created `tsconfig.json` which says its a typescript project,
 so while running `tsc`, it compiles all the TS files, we dont need to specify the file name everytime.
 
 - Run `tsc -w`for watch mode
