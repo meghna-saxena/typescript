@@ -157,7 +157,7 @@ let hasHobbies = false;
 hasHobbies = 1; //gives error, even if 1 == true, since TS checks for type boolean, and 1 is a number.
 ```
 
-## Assigning Types Exlicitly
+## Assigning Types Explicitly
 Why its important?
 
 ```
