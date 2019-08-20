@@ -160,6 +160,8 @@ hasHobbies = 1; //gives error, even if 1 == true, since TS checks for type boole
 ## Assigning Types Explicitly
 Why its important?
 
+Till now we were inferring types, how to assign types explicitely?
+
 ```
 let myAge;
 myAge = 28; //doesnt throws err
@@ -270,7 +272,7 @@ enum ServerState {
 if (myState = ServerState.Offline) { ... }
 ```
 
-* Othr examples includes: days in a week, months in a year, starbucks coffee cup sizes
+* Othe  r examples includes: days in a week, months in a year, starbucks coffee cup sizes
 
 ## The "Any" type
 - Any is the most flexible type in TS.
@@ -389,8 +391,8 @@ userData = {
 }; //throws error because names of properties dont match
 ```
 
-* So names dont matter in functions, there only types matter, but in object names of properties also matters!
-And the reason is => in function, the order is important. The first agr should be a number, second 
+* So names dont matter in functions, there only types and order of args matter, but in object names of properties also matters!
+And the reason is => in function, the order is important. The first arg should be a number, second 
 should be a number and so on. But in object, the order is unclear, order might change behind the scenes.
 
 Explicit types of object
