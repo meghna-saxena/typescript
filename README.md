@@ -458,10 +458,11 @@ let complex2: {data: number[], output: (all: boolean) => number[]} = {
 Now, if we have to change the type of data as `any[]`, it will be cumbersome to change at places.
 So we can assign the type to one word which can be reused.
 
-We'll later learn about classes, which alows to create objects or blueprints of an object, but here we can use type alias
-to store a type
+We'll later learn about classes, which allows to create objects or blueprints of an object, but here we can use type alias to store a type
 
-- Create alias with  `type` keyword and then name of your choice
+// type alias
+
+- Create alias with `type` keyword and then name of your choice
 
 ```
 type Complex = {data: number[], output: (all: boolean) => number[]};
@@ -511,8 +512,12 @@ Here only an interface helps us:
 class SomeClass implements Aged {} 
 ```
 
-Because we can only implement interfaces, not aliases.
+Because `we can only implement interfaces, not aliases`.
 
+Note: If one can do everything with interfaces, why should we ever use type aliases?
+When is it better to use type alias over interfaces?
+
+Think of aliases as little helpers if you're "too lazy" to write an interface. If you really only want to create a shortcut for `{name: string}`, creating an interface might just be overkill.
 
 ## Allowing multiple types w/ Union Types
 
@@ -665,8 +670,7 @@ const deposit = myself.bankAccount.deposit(3000);
 
 console.log(deposit); //undefined since the function doesnt returns anything
 
- ```
-
+```
 
 # Understanding the TS compiler
 - create a .ts file
@@ -684,11 +688,9 @@ let myAge: number = 28;
 
 `myName = 30;` // throws compilation error, number cant be assigned to string
 
-- If we go back to JS file, it still shows the reassignment of the variable even though we get a compilation 
-error.
+- If we go back to JS file, it still shows the reassignment of the variable even though we get a compilation error.
 - Why it compiles? Because its a default behavior, TS compiler warns/throws error, but it compiles
-nonetheless to give a chnace to run the code because maybe due to some import statement in html files or other
-place which TS doesnt knows about, but code still works once its compiled.
+nonetheless to give a chance to run the code because maybe due to some import statement in html files or other place which TS doesnt knows about, but code still works once its compiled.
 However then its not a TS-friendly application.
 
 - You can suppress this behavior:
@@ -715,13 +717,19 @@ Base options in the file -
 
 - Fix the dafult behavior of TS compiling code, even if it has type errors
 
-Add `"noEmitOnError": true` inside compilerOptions
-
+Add `"noEmitOnError": true` || `"noEmit": true` inside compilerOptions, doesn't emit outputs, so no js file is created, since ts file is stopped from compiling */
 
 ## Debugging TS code using source maps
 
+- By default 2 compiler options are:
+
+```
+  - "noImplicitAny: false",
+  - "sourceMap: false"
+```
+
 Inside compilerOptions, `sourceMap` is set to false by default. If its set to true, upon running tsc, 
-along with .js file .map file is also created which is sourcemap file.  
+along with `app.js` file `app.js.map` file is also created which is sourcemap file.  
 
 - Go to chrome dev tools -> Sources  -> app.js, app.ts.
   So we get access to ts file on the browser.
@@ -731,7 +739,7 @@ along with .js file .map file is also created which is sourcemap file.
 ## Avoiding implicit "any"
 
 ```
-let anything; //no type is declared so, type any is assgined implicitely
+let anything; //no type is declared so, type `any` is assigned implicitely
 anything = 12;
 ```
 
@@ -740,6 +748,7 @@ tsconfig,json -> compilerOptions -> `noImplicitAny: true`
 - It still allows to explictely set any type
 eg: `let anything: any;`
 
+- This feature has been remoed from TS 2.1 (?)
 
 ## More compiler options
 - Detailed documentation on the TypeScript Compiler Config File (tsconfig.json) here: http://www.typescriptlang.org/docs/handbook/tsconfig-json.html
@@ -778,25 +787,36 @@ function controlMe(isTrue: boolean, somethingElse: boolean) {
   return result;
 }
 ```
+
 - Results in cleaner code.
+
+For starter projects, this can be configured in config file:
+
+```
+"noImplicitAny": true,
+"noImplicitThis": true,
+"noUnusedParameters": true,
+"noUnusedLocals": true,
+"noEmitOnError": true,
+"strictNullChecks": true
+```
+_______________
 
 
 # Typescript and ES6
 
 Not necessarily all ES6 Features are supported by TypeScript, but quite a lot of them are.
 
-The following Compatibly Chart helps you find out if you're favorite Feature is supported:
+The following `Compatibility Chart` helps you find out if you're favorite feature is supported:
 http://kangax.github.io/compat-table/es6/
-
-
 
 ## let & const
 
-- let keyword created block-scoped variable, while var keyword creates function or global-scoped variable
-
+- let keyword created block-scoped variable which means its contained in the block where its defined, while var keyword creates function or global-scoped variable
 
 ## What is block scope?
 - Variable is accessed inside the nearest block-level only.
+- `const` are immutable
 
 ```
 let variable = "test";
@@ -804,6 +824,7 @@ console.log(variable);
 
 variable = "another value";
 console.log(variable);
+
 
 const maxLevels = 100;
 console.log(maxLevels);
